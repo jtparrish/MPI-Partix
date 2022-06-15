@@ -9,11 +9,11 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define DEBUG 1
+#define DEBUG 0 
 #define GDB 0
 
 
-#define NUM_TASKS 1
+#define NUM_TASKS 100 
 
 int debug(const char *format, ...) {
 #if DEBUG
@@ -108,7 +108,7 @@ static aligned_t task(void *args_ptr_) {
       {
         debug("receiving %d\n", args_ptr->tag);
         int dest = -1;
-        MPI_Recv(&dest, 1, MPI_INT, 1, args_ptr->tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(&dest, 1, MPI_INT, 0, args_ptr->tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         assert(dest == args_ptr->tag);
         debug("received %d\n", args_ptr->tag);
         free(args_ptr);
